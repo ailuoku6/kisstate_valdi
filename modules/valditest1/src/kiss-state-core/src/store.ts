@@ -1,0 +1,59 @@
+import { ITrackObj } from './types/index';
+
+export type EffectCallback = () => void;
+export const innerEffctWeakMap = new WeakMap<object, ITrackObj[]>();
+export const clearCallbacks = new WeakMap<ITrackObj, Array<Function>>();
+export const globalStores: Array<Object> = [];
+// export const proxyMap = new WeakMap<object, any>(); // 缓存代理对象
+
+export const globalStore: { curTrackObj: ITrackObj | null } = {
+  curTrackObj: null,
+};
+
+export const getValues = (trackObj: ITrackObj) => {
+  const res = {};
+
+  let i = 0;
+
+  globalStores.forEach((storeObj) => {
+    const obj = (storeObj as any).__getDebugValue__(trackObj);
+    obj && Object.assign(res, { [i++]: obj });
+  });
+
+  return res;
+};
+
+export const addClearCallbackArray = (
+  callbackFn: ITrackObj,
+  cleanFn: Function,
+) => {
+  const clearFuns = clearCallbacks.get(callbackFn) || [];
+  clearFuns.push(cleanFn);
+  clearCallbacks.set(callbackFn, clearFuns);
+};
+
+export const cleanTrack = (trackObj: ITrackObj) => {
+  const clearFuns = clearCallbacks.get(trackObj) || [];
+  clearFuns.forEach((fn) => fn());
+  clearCallbacks.delete(trackObj);
+};
+
+export const trackFun = (fn: Function, trackObj: ITrackObj) => {
+  const preCallback = globalStore.curTrackObj;
+  globalStore.curTrackObj = trackObj;
+  let res = null;
+  let error = null;
+  try {
+    res = fn();
+  } catch (err) {
+    error = err;
+    cleanTrack(trackObj);
+  } finally {
+    globalStore.curTrackObj = preCallback;
+  }
+  if (error) {
+    throw error;
+  }
+  return res;
+};
+
