@@ -48,6 +48,9 @@ valdi_module(
     # ...
     deps = [
         "@kisstate_valdi//valdi_modules/kisstate-valdi:kisstate-valdi",
+        # and optionally:
+        # "@valdi_widgets//valdi_modules/navigation",
+        # "@valdi_widgets//valdi_modules/valdi_standalone_ui",
     ],
 )
 ```
@@ -77,7 +80,7 @@ valdi_module(
 使用 `@ObservableClass` 声明可观察类：
 
 ```typescript
-import { ObservableClass } from 'kisstate-valdi';
+import { ObservableClass } from 'kisstate-valdi/src/kiss-valdi/index';
 
 @ObservableClass
 class User {
@@ -117,7 +120,7 @@ get nextAge() {
 直接使用 `observer` 连接 Valdi 组件：
 
 ```typescript
-import { observer } from 'kisstate-valdi';
+import { observer } from 'kisstate-valdi/src/kiss-valdi/index';
 import { StatefulComponent } from 'valdi_core/src/Component';
 
 export class MyComponent extends StatefulComponent<{}, {}> {
@@ -160,7 +163,7 @@ class User {
 ## 完整示例
 
 ```typescript
-import { ObservableClass, watchProps, computed, observer } from 'kisstate-valdi';
+import { ObservableClass, watchProps, computed, observer } from 'kisstate-valdi/src/kiss-valdi/index';
 import { StatefulComponent } from 'valdi_core/src/Component';
 
 @ObservableClass
