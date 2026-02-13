@@ -1,7 +1,7 @@
 {
-    "name": "hello_world",
+    "name": "kisstate-valdi",
     "version": "1.0.0",
-    "description": "Valdi Helloworld app",
+    "description": "Kisstate Valdi module",
     "license": "ISC",
     "devDependencies": {
       "@snap/eslint-plugin-valdi": "1.0.2",

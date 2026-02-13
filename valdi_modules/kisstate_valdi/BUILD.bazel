@@ -1,7 +1,7 @@
 load("@valdi//bzl/valdi:valdi_module.bzl", "valdi_module")
 
 valdi_module(
-    name = "valditest1",
+    name = "kisstate_valdi",
     srcs = glob([
         "src/**/*.ts",
         "src/**/*.tsx",

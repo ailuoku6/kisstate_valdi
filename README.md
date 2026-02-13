@@ -1,5 +1,5 @@
-# valditest1 (Valdi module)
-This repo provides a reusable Valdi module at `valdi_modules/valditest1` so other projects can depend on it.
+# kisstate-valdi (Valdi module)
+This repo provides a reusable Valdi module at `valdi_modules/kisstate_valdi` so other projects can depend on it.
 
 ## Use in Another Valdi Project
 
@@ -10,10 +10,10 @@ Add this repo to your consumer project's `WORKSPACE` using either `http_archive`
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
-    name = "valditest1",
+    name = "kisstate_valdi",
     # Replace with your repo URL and tag/commit
-    url = "https://github.com/<org>/valditest1/archive/refs/heads/main.zip",
-    strip_prefix = "valditest1-main",
+    url = "https://github.com/<org>/kisstate-valdi/archive/refs/heads/main.zip",
+    strip_prefix = "kisstate-valdi-main",
 )
 ```
 
@@ -22,8 +22,8 @@ http_archive(
 load("@bazel_tools//tools/build_defs/repo:local.bzl", "local_repository")
 
 local_repository(
-    name = "valditest1",
-    path = "/absolute/path/to/valditest1",
+    name = "kisstate_valdi",
+    path = "/absolute/path/to/kisstate-valdi",
 )
 ```
 
@@ -34,12 +34,12 @@ valdi_module(
     name = "your_module",
     # ...
     deps = [
-        "@valditest1//valdi_modules/valditest1:valditest1",
+        "@kisstate_valdi//valdi_modules/kisstate_valdi:kisstate_valdi",
     ],
 )
 ```
 
-Public APIs are exported from `valdi_modules/valditest1/src/index.ts`.
+Public APIs are exported from `valdi_modules/kisstate_valdi/src/index.ts`.
 
 ## Local Development (Optional)
 

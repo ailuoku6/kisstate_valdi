@@ -2,18 +2,18 @@ load("@valdi//bzl/valdi:valdi_application.bzl", "valdi_application")
 load("@valdi//bzl/valdi:valdi_exported_library.bzl", "valdi_exported_library")
 
 valdi_application(
-    name = "valditest1_app",
-    ios_bundle_id = "com.website.valditest1",
+    name = "kisstate_valdi_app",
+    ios_bundle_id = "com.website.kisstate.valdi",
     ios_families = ["iphone"],
-    root_component_path = "App@valditest1/src/App",
-    title = "valditest1",
+    root_component_path = "App@kisstate_valdi/src/App",
+    title = "kisstate-valdi",
     version = "1.0.0",
-    deps = ["//valdi_modules/valditest1"],
+    deps = ["//valdi_modules/kisstate_valdi"],
 )
 
 valdi_exported_library(
-    name = "valditest1_export",
-    ios_bundle_id = "com.website.valditest1.lib",
-    ios_bundle_name = "Valditest1",
-    deps = ["//valdi_modules/valditest1"],
+    name = "kisstate_valdi_export",
+    ios_bundle_id = "com.website.kisstate.valdi.lib",
+    ios_bundle_name = "KisstateValdi",
+    deps = ["//valdi_modules/kisstate_valdi"],
 )
