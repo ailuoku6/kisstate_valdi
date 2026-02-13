@@ -174,7 +174,6 @@ export function createValdiObserver<
             onDestroy(): void {
                 // 清理追踪，避免内存泄漏
                 if (this.trackObj) {
-                    console.info("-----------fgylog cleanTrack")
                     cleanTrack(this.trackObj);
                     this.trackObj = null;
                 }
@@ -192,8 +191,6 @@ export function createValdiObserver<
              */
             private forceRender(): void {
                 if (!this.trackObj) return;
-
-                console.info("-------------fgylog forceRender")
 
                 // 如果是 StatefulComponent，使用 setState 触发重新渲染
                 if (this instanceof (BaseStatefulComponent as any)) {
@@ -234,7 +231,6 @@ export function createValdiObserver<
                 // 使用 trackFun 包装 onRender，在执行时收集依赖
                 // 在 onRender 执行过程中，任何对响应式对象属性的访问都会被追踪
                 trackFun(() => {
-                    console.info("----------fgylog trackFun")
                     originalOnRender.call(this);
                 }, this.trackObj);
             }
@@ -271,4 +267,3 @@ export function createValdiObserver<
 
     return observer;
 }
-

@@ -1,22 +1,22 @@
 # kisstate_valdi
 
-[English Version](./README_EN.md)
+[中文版本](./README.md)
 
-**kisstate_valdi** 是一个遵循 KISS（Keep It Simple, Stupid）原则的轻量级状态管理库，面向 Valdi 组件体系。通过简洁的装饰器和响应式设计，帮助开发者轻松管理组件状态，告别复杂的状态逻辑。
-
----
-
-## 特性
-
-- **极简 API**：通过装饰器快速声明可观察对象、计算属性和监听器
-- **Valdi 深度集成**：通过 `observer` 绑定组件自动响应
-- **零配置**：开箱即用，仅需开启装饰器
+**kisstate_valdi** is a lightweight state management library built on the KISS (Keep It Simple, Stupid) principle for Valdi components. It provides a small set of decorators and a reactive model to keep state logic simple and predictable.
 
 ---
 
-## 安装
+## Features
 
-将本仓库作为 Valdi 模块依赖引入。
+- **Minimal API**: Declare observable classes, computed values, and watchers with decorators
+- **Valdi Integration**: Bind Valdi components with `observer`
+- **Zero Config**: Works out of the box once decorators are enabled
+
+---
+
+## Installation
+
+Add this repo as a Valdi module dependency.
 
 ```bzl
 # WORKSPACE
@@ -40,7 +40,7 @@ local_repository(
 )
 ```
 
-在消费方模块 `BUILD.bazel` 中添加依赖：
+Add the dependency in your consumer module `BUILD.bazel`:
 
 ```bzl
 valdi_module(
@@ -52,13 +52,13 @@ valdi_module(
 )
 ```
 
-公共 API 导出在 `valdi_modules/kisstate-valdi/src/index.ts`。
+Public APIs are exported from `valdi_modules/kisstate-valdi/src/index.ts`.
 
 ---
 
-## TypeScript 装饰器
+## TypeScript Decorators
 
-本模块使用 legacy 装饰器。请确保消费方的 `tsconfig.json` 启用：
+This module uses legacy decorators. Ensure your consumer `tsconfig.json` enables:
 
 ```json
 {
@@ -70,11 +70,11 @@ valdi_module(
 
 ---
 
-## 核心概念
+## Core Concepts
 
 ### 1. Observable Class
 
-使用 `@ObservableClass` 声明可观察类：
+Declare an observable class with `@ObservableClass`:
 
 ```typescript
 import { ObservableClass } from 'kisstate-valdi';
@@ -90,9 +90,9 @@ class User {
 }
 ```
 
-### 2. 属性监听
+### 2. Property Watchers
 
-使用 `@watchProps` 监听特定属性变化：
+Listen to changes with `@watchProps`:
 
 ```typescript
 @watchProps('age')
@@ -101,9 +101,9 @@ onAgeChange() {
 }
 ```
 
-### 3. 计算属性
+### 3. Computed Properties
 
-使用 `@computed` 声明自动更新的计算属性：
+Declare computed values with `@computed`:
 
 ```typescript
 @computed('age')
@@ -112,9 +112,9 @@ get nextAge() {
 }
 ```
 
-### 4. Valdi 组件绑定
+### 4. Valdi Component Binding
 
-直接使用 `observer` 连接 Valdi 组件：
+Bind Valdi components directly with `observer`:
 
 ```typescript
 import { observer } from 'kisstate-valdi';
@@ -133,9 +133,9 @@ export const ObservedComponent = observer(MyComponent);
 
 ---
 
-## 注意事项
+## Notes
 
-kisstate_valdi 不会递归深度监听子 Object 和 Array，如需变更并触发副作用，请通过解构赋值触发更新：
+kisstate_valdi does not deeply observe nested Objects and Arrays. To trigger updates, replace them with new references:
 
 ```typescript
 @ObservableClass
@@ -157,7 +157,7 @@ class User {
 
 ---
 
-## 完整示例
+## Full Example
 
 ```typescript
 import { ObservableClass, watchProps, computed, observer } from 'kisstate-valdi';
@@ -211,30 +211,30 @@ export default observer(App);
 
 ---
 
-## 工作原理
+## How It Works
 
-1. 通过 Proxy 进行属性访问追踪
-2. 状态变更后批量调度依赖更新
-
----
-
-## 最佳实践
-
-1. 为每个领域模型创建独立的 Observable Class
-2. 按业务需求拆分监听器，避免过度依赖
-3. 计算属性默认缓存，避免重复计算
-4. 仅在需要响应的 Valdi 组件上使用 `observer`
+1. Tracks property access via Proxy
+2. Schedules updates when dependencies change
 
 ---
 
-## API 文档
+## Best Practices
 
-| API                | 说明                         |
-| ------------------ | ---------------------------- |
-| `@ObservableClass` | 声明可观察类                 |
-| `@watchProps`      | 监听指定属性变化             |
-| `@computed`        | 声明计算属性                 |
-| `observer`         | 创建响应式 Valdi 组件      |
+1. Use one Observable Class per domain model
+2. Keep watchers small and focused
+3. Computed values are cached to avoid repeated work
+4. Apply `observer` only where reactivity is required
+
+---
+
+## API Reference
+
+| API                | Description                    |
+| ------------------ | ------------------------------ |
+| `@ObservableClass` | Declare an observable class    |
+| `@watchProps`      | Watch specific property changes|
+| `@computed`        | Declare computed values        |
+| `observer`         | Create reactive Valdi components |
 
 ---
 

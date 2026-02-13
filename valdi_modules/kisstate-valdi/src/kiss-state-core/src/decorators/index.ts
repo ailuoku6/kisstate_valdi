@@ -64,7 +64,6 @@ const execCallbackByPropName = (
 export function ObservableClass<T extends new (...args: any[]) => object>(
   Constructor_: T,
 ) {
-  console.info("------------fgylog ObservableClass")
   const NewConstructor = function (...args: any[]) {
     // 正确使用 new 调用原始构造函数
     const instance = new Constructor_(...args);
@@ -91,7 +90,6 @@ export function ObservableClass<T extends new (...args: any[]) => object>(
         return result;
       },
       get(target, p, receiver) {
-        console.info("------------fgylog getter", target)
         const curTrackObj = globalStore.curTrackObj;
         if (curTrackObj) {
           const linsenSet =
@@ -107,8 +105,6 @@ export function ObservableClass<T extends new (...args: any[]) => object>(
         return Reflect.get(target, p, receiver);
       },
     });
-
-    console.info("-----------fgylog proxy", proxy)
 
     const watchFns = Constructor_.prototype.__watchFns__ || [];
 
@@ -238,4 +234,3 @@ export function computed<T extends object>(...props: PropertyKeyOf<T>[]) {
     };
   };
 }
-

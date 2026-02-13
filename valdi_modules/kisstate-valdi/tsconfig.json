@@ -1,6 +1,7 @@
 {
     "extends": "../../bazel-kisstate_valdi/external/valdi/modules/_configs/base.tsconfig.json",
     "compilerOptions": {
+        "experimentalDecorators": true,
         "lib": [
             "dom",
             "ES2019"
